@@ -1535,7 +1535,7 @@
         <div class="rsvp-success" id="rsvpSuccess">
           <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#A9813C" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>
           <h3>Рахмет!</h3>
-          <p>Жауабыңыз қабылданды.<br>Сізбен той күні кездескенімізге қуанамыз.</p>
+          <p id="rsvpSuccessText">Жауабыңыз қабылданды.<br>Сізбен той күні кездескенімізге қуанамыз.</p>
         </div>
       </section>
 
@@ -1878,6 +1878,7 @@
         var guestPlus = document.getElementById('guestPlus');
         var nameInput = document.getElementById('rsvpName');
         var messageInput = document.getElementById('rsvpMessage');
+        var successText = document.getElementById('rsvpSuccessText');
 
         var attending = 'yes';
         var guests = 1;
@@ -1935,6 +1936,11 @@
 
           try {
             await RSVPService.submit(entry);
+            if (successText) {
+              successText.innerHTML = (attending === 'yes')
+                ? 'Жауабыңыз қабылданды.<br>Сізбен той күні кездескенімізге қуанамыз.'
+                : 'Жауабыңыз қабылданды.<br>Қатыса алмайтыныңызды хабарлағаныңызға рахмет.';
+            }
             form.style.display = 'none';
             successBox.classList.add('show');
           } catch (err) {
