@@ -1302,10 +1302,14 @@
     </div>
   </div>
 
-  <!-- ===== AUDIO (бір ғана) ===== -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="music.m4a" type="audio/m4a">
-    <source src="music.m4a" type="audio/m4a">
+  <!-- ===== AUDIO (бір ғана) =====
+       МАҢЫЗДЫ: бұл екі <source> дәл бір-бірінен бөлек-формат болуы керек (біреуі mp3, екіншісі m4a — fallback ретінде).
+       Кате: екіеуі де бірдей "music.m4a" болды — екіншісі fallback емес, тек керіншілейтін қайталау болатын.
+       Осы екі файлды (music.mp3 және music.m4a) HTML файлынызбен БІР ПАПКАДА, дәл атымен жазу тиіс болуы тиіс орналастырылуы керек (регистріне түбі әріп).
+  -->
+  <audio id="bgMusic" loop preload="auto" playsinline>
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.m4a" type="audio/mp4">
   </audio>
 
   <!-- PROGRESS BAR -->
@@ -1374,11 +1378,11 @@
 
         <div class="gallery-track" id="galleryTrack" role="region" aria-label="Фотогалерея">
           <div class="gallery-slide" tabindex="0" role="img" aria-label="Фото 1">
-            <img src="https://picsum.photos/seed/1/400/500" alt="Қасымжомарт және Ұлжан фото 1" loading="lazy">
+            <img src="photo1.JPG" alt="Қасымжомарт және Ұлжан фото 1" loading="lazy">
             <span class="slide-label">Біз</span>
           </div>
           <div class="gallery-slide" tabindex="0" role="img" aria-label="Фото 2">
-            <img src="https://picsum.photos/seed/2/400/500" alt="Қасымжомарт және Ұлжан фото 2" loading="lazy">
+            <img src="photo2.jpg" alt="Қасымжомарт және Ұлжан фото 2" loading="lazy">
             <span class="slide-label">Сүйіспеншілік</span>
           </div>
           <div class="gallery-slide" tabindex="0" role="img" aria-label="Фото 3">
@@ -1619,6 +1623,26 @@
 
         if (!gate || !openBtn) return;
 
+        // Диагностика: аудио файл жүктелмесе не қате болса, себебін көрсету
+        function describeMediaError(err) {
+          if (!music.error) return (err && err.message) ? err.message : 'Белгісіз қате';
+          switch (music.error.code) {
+            case 1: return 'Жүктеу тоқтатылды (ABORTED)';
+            case 2: return 'Желі қатесі — файл жүктелмеді (NETWORK)';
+            case 3: return 'Файл декодталмады, форматы бұзылған болуы мүмкін (DECODE)';
+            case 4: return 'music.mp3 / music.m4a табылмады немесе браузер қолдамайды (SRC_NOT_SUPPORTED)';
+            default: return 'Белгісіз қате';
+          }
+        }
+        music.addEventListener('error', function() {
+          console.error('[bgMusic] қате:', describeMediaError());
+        });
+        music.querySelectorAll('source').forEach(function(src) {
+          src.addEventListener('error', function() {
+            console.error('[bgMusic] дереккөз жүктелмеді:', src.src);
+          });
+        });
+
         // Басында скроллды бұғаттау
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
@@ -1633,18 +1657,22 @@
             music.volume = 0.45;
             var p = music.play();
             if (p && typeof p.catch === 'function') {
-              p.catch(function() {
-                // music.mp3 жоқ немесе блокталған болса, ештеңе істемейміз
+              p.then(function() {
+                toggle.classList.add('ready');
+                toggle.classList.add('playing');
+                hint.textContent = 'Әуенді өшіру';
+                hint.classList.add('show');
+                setTimeout(function() { hint.classList.remove('show'); }, 3000);
+              }).catch(function(err) {
+                // Ойнату сәтсіз аяқталды — себебін көрсетеміз
+                console.error('[bgMusic] play() қатесі:', err, describeMediaError(err));
+                toggle.classList.add('ready');
+                toggle.classList.remove('playing');
+                hint.textContent = 'Әуенді қосу үшін басыңыз';
+                hint.classList.add('show');
+                setTimeout(function() { hint.classList.remove('show'); }, 3500);
               });
             }
-            // Музыка басқару батырмасын көрсету
-            toggle.classList.add('ready');
-            toggle.classList.add('playing');
-            hint.textContent = 'Әуенді өшіру';
-            hint.classList.add('show');
-            setTimeout(function() {
-              hint.classList.remove('show');
-            }, 3000);
           }
         }, { once: true });
 
@@ -1652,9 +1680,13 @@
         if (toggle && music) {
           toggle.addEventListener('click', function() {
             if (music.paused) {
-              music.play().catch(function() {});
-              toggle.classList.add('playing');
-              hint.textContent = 'Әуенді өшіру';
+              music.play().then(function() {
+                toggle.classList.add('playing');
+                hint.textContent = 'Әуенді өшіру';
+              }).catch(function(err) {
+                console.error('[bgMusic] play() қатесі:', err, describeMediaError(err));
+                hint.textContent = 'Әуен файлы табылмады';
+              });
             } else {
               music.pause();
               toggle.classList.remove('playing');
