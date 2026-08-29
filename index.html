@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Қасымжомарт &amp; Ұлжан — Той шақыруы</title>
-  <meta name="description" content="Қасымжомарт пен Ұлжанның тойына шақыру. 18 қазан 2026, сағат 19:00, Нұршуақ, Шымкент.">
+  <meta name="description" content="Қасымжомарт пен Ұлжанның тойына шақыру. 18 қазан 2026, сағат 18:00, Нұршуақ, Шымкент.">
   <meta name="theme-color" content="#A9813C">
   <meta property="og:title" content="Қасымжомарт &amp; Ұлжан — Той шақыруы">
-  <meta property="og:description" content="18 қазан 2026, сағат 19:00, Нұршуақ, Шымкент.">
+  <meta property="og:description" content="18 қазан 2026, сағат 18:00, Нұршуақ, Шымкент.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -355,6 +355,31 @@
     }
 
     /* ============================================================
+       WELCOME / GREETING SECTION
+       ============================================================ */
+    .welcome-section {
+      background: var(--ivory);
+      text-align: center;
+    }
+    .welcome-heading {
+      font-family: var(--flourish);
+      font-weight: 700;
+      font-size: 46px;
+      color: var(--gold);
+      margin: 0 0 22px;
+      line-height: 1.1;
+    }
+    .welcome-text {
+      font-family: var(--script);
+      font-style: italic;
+      font-size: 19px;
+      line-height: 1.9;
+      color: var(--ink-soft);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    /* ============================================================
        2. PHOTO GALLERY
        ============================================================ */
     .gallery-section { background: var(--ivory); }
@@ -661,6 +686,56 @@
     }
 
     /* ============================================================
+       PROGRAM / TIMELINE
+       ============================================================ */
+    .timeline-section { background: var(--ivory-deep); }
+    .timeline-list {
+      position: relative;
+      max-width: 260px;
+      margin: 0 auto;
+      padding-left: 34px;
+    }
+    .timeline-list::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 6px;
+      bottom: 6px;
+      width: 1px;
+      background: linear-gradient(var(--line), var(--line));
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 38px;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -34px;
+      top: 4px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(169,129,60,.14);
+    }
+    .timeline-label {
+      font-family: var(--disp);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0 0 4px;
+    }
+    .timeline-time {
+      font-family: var(--script);
+      font-style: italic;
+      font-size: 16px;
+      color: var(--gold);
+    }
+
+    /* ============================================================
        7. RSVP
        ============================================================ */
     .rsvp-section { background: var(--ivory); }
@@ -830,6 +905,22 @@
       max-width: 300px;
       margin: 0 auto 30px;
       line-height: 1.8;
+    }
+    .final-hosts {
+      font-family: var(--script);
+      font-weight: 700;
+      font-style: normal;
+      font-size: 17px;
+      letter-spacing: .05em;
+      color: var(--ink);
+      margin: 0 0 14px;
+    }
+    .final-hosts-label {
+      font-weight: 700;
+      font-style: normal;
+      font-size: 19px;
+      color: var(--ink);
+      letter-spacing: .04em;
     }
     .final-names {
       font-family: var(--disp);
@@ -1138,9 +1229,8 @@
 <!-- ===== INVITE GATE ===== -->
 <div id="inviteGate">
   <div class="gate-inner">
-    <div class="gate-kicker">Сіздерге арнайы шақыру</div>
     <h1 class="gate-names">Қасымжомарт<span class="amp">&amp;</span>Ұлжан</h1>
-    <div class="gate-date">18 қазан 2026 • 19:00</div>
+    <div class="gate-date">18 қазан 2026 • 18:00</div>
     <button id="openInvite" type="button">Шақыруды ашу</button>
   </div>
 </div>
@@ -1193,18 +1283,28 @@
 
       <p class="eyebrow">Той шақыруы</p>
       <h1 class="hero-names">Қасымжомарт<span class="amp">&amp;</span>Ұлжан</h1>
-      <p class="hero-tagline">Сіздерді өміріміздегі ең маңызды<br>күнге — тойымызға шақырамыз</p>
 
       <div class="hero-date-pill shine">
         <span>18 <b>Қазан</b> 2026</span>
         <span style="opacity:.5">•</span>
-        <span>19:00</span>
+        <span>18:00</span>
       </div>
 
       <div class="hero-scroll">
         <span>Төмен түсіңіз</span>
         <div class="line"></div>
       </div>
+    </section>
+
+    <!-- WELCOME -->
+    <section class="welcome-section section">
+      <div class="divider reveal">
+        <div class="stem"></div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#A9813C"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2.3 4 6.4 4c2.2 0 3.9 1.3 5.6 3.4C13.7 5.3 15.4 4 17.6 4c4.1 0 5.9 4 4.4 7.7C19.5 16.4 12 21 12 21z"/></svg>
+        <div class="stem"></div>
+      </div>
+      <h2 class="welcome-heading reveal">Құрметті қонақтар!</h2>
+      <p class="welcome-text reveal reveal-d1">Сізді(дерді) ұлымыз Қасымжомарт пен келініміз Ұлжанның үйлену тойына арналған ақ дастарханымыздың қадірлі қонағы болуға шақырамыз.</p>
     </section>
 
     <!-- DATE -->
@@ -1227,7 +1327,7 @@
           <div class="date-time-sep"></div>
           <div class="date-time-item">
             <span class="lbl">Уақыты</span>
-            <span class="val">19:00</span>
+            <span class="val">18:00</span>
           </div>
         </div>
       </div>
@@ -1246,7 +1346,7 @@
           <div class="y">2026</div>
         </div>
         <div class="cal-grid" id="calGrid"></div>
-        <div class="cal-foot">Жексенбі, 18 қазан күні сағат 19:00-де күтеміз</div>
+        <div class="cal-foot">Жексенбі, 18 қазан күні сағат 18:00-де күтеміз</div>
       </div>
     </section>
 
@@ -1257,7 +1357,7 @@
       <p class="eyebrow reveal">Мекен-жай</p>
       <h2 class="section-title reveal">Той өтетін орын</h2>
       <div class="divider-mini reveal"><div class="stem"></div><div class="diamond"></div><div class="stem"></div></div>
-      <p class="section-sub reveal">Тойымызға қатысу үшін төмендегі мекенжай бойынша келіңіз</p>
+      <p class="section-sub reveal">Сізді(дерді) төмендегі мекенжай бойынша 18.10.2026ж сағат 18:00-де күтеміз</p>
 
       <div class="loc-card reveal reveal-d1">
         <div class="loc-body">
@@ -1289,7 +1389,6 @@
 
     <!-- RSVP -->
     <section class="rsvp-section section">
-      <p class="eyebrow reveal">Растау</p>
       <h2 class="section-title reveal">Қатысуыңызды растаңыз</h2>
       <div class="divider-mini reveal"><div class="stem"></div><div class="diamond"></div><div class="stem"></div></div>
       <p class="section-sub reveal">10 қазанға дейін жауап берулеріңізді сұраймыз</p>
@@ -1352,13 +1451,11 @@
         <div class="stem"></div>
       </div>
 
-      <h2 class="final-title reveal">Рахмет</h2>
-      <p class="final-text reveal reveal-d1">Сіздің қатысуыңыз біз үшін осы күннің<br>ең маңызды сыйы болмақ</p>
+      <h2 class="final-title reveal"></h2>
 
-      <p class="final-names reveal reveal-d2">Қасымжомарт &amp; Ұлжан</p>
+      <p class="final-hosts reveal reveal-d2"><span class="final-hosts-label">той иелері:</span> ҒАЛЫМЖАН АЙНУР</p>
+      <p class="final-names reveal reveal-d2">Қ &amp; Ұ</p>
       <p class="final-date reveal reveal-d2">18 . 10 . 2026</p>
-
-      <p class="footer-note">жасалды • сүйіспеншілікпен</p>
     </section>
 
   </div>
@@ -1422,7 +1519,7 @@
         if (code === 1) return 'Жүктеу тоқтатылды (ABORTED)';
         if (code === 2) return 'Желі қатесі — файл жүктелмеді (NETWORK)';
         if (code === 3) return 'Файл декодталмады, форматы бұзылған (DECODE)';
-        if (code === 4) return 'music.mp3 / music.m4a / music.ogg табылмады (SRC_NOT_SUPPORTED)';
+        if (code === 4) return 'music.m4a табылмады немесе қолдау таппады (SRC_NOT_SUPPORTED)';
         return 'Қате коды: ' + code;
       }
 
@@ -1566,11 +1663,11 @@
 
       setTimeout(function() {
         if (!gateOpened && !audioReady) {
-          statusEl.textContent = '◉ music.mp3 / .m4a / .ogg жүктелуде…';
+          statusEl.textContent = '◉ music.m4a жүктелуде…';
           statusEl.classList.add('show');
         }
       }, 6000);
-      console.log('[bgMusic] Аудио файлдар: music.mp3, music.m4a, music.ogg — бір папкада.');
+      console.log('[bgMusic] Аудио файл: music.m4a — jsDelivr CDN арқылы.');
     })();
 
     /* ============================================================
@@ -1711,7 +1808,7 @@
        COUNTDOWN — 19:00
        ============================================================ */
     (function countdown() {
-      var target = new Date('2026-10-18T19:00:00+05:00').getTime();
+      var target = new Date('2026-10-18T18:00:00+05:00').getTime();
       var dEl = document.getElementById('cd-days'), hEl = document.getElementById('cd-hours'), mEl = document.getElementById('cd-mins'), sEl = document.getElementById('cd-secs');
       function pad(n) { return String(n).padStart(2, '0'); }
       function tick() {
